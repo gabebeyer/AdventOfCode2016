@@ -11,83 +11,47 @@ instructions = instructions.replace(",", "").split()
 location = (0,0)
 locations_visited = []
 locations_visited_twice = []
-direction = 0
+direction = 'north'
 
 for instruction in instructions:
-	print direction
-
+	
 	#turn
 	if instruction[0] == 'R':
-
-		direction += 1
-
-		if direction == 3:
-			direction = 0
-
-
-	
+		if direction == 'north':direction = 'east'
+		elif direction == 'east':direction = 'south'
+		elif direction == 'south':direction = 'west'
+		elif direction == 'west':direction = 'north'
 	elif instruction[0] == 'L':
-		if direction == 0:
-			direction = 3
-		direction -= 1
-
-	
+		if direction == 'north':direction = 'west'
+		elif direction == 'west':direction = 'south'
+		elif direction == 'south':direction = 'east'
+		elif direction == 'east':direction = 'north'
 
 	#move
-	if direction  ==  0:		
+	if direction   == 'east':		
 		for x in xrange(int(instruction[1:])):
-			location = (location[0],location[1]+1)
+			location = (location[0] + 1,location[1])
 			if location in locations_visited:
 				locations_visited_twice.append(location)
 			locations_visited.append(location)
-
-	if direction  ==  1:		
+	elif direction == 'west':
 		for x in xrange(int(instruction[1:])):
-			location = (location[0]+1,location[1])
-			if location in locations_visited:
-				locations_visited_twice.append(location)
-			locations_visited.append(location)	
-
-	if direction  ==  2:		
-		for x in xrange(int(instruction[1:])):
-			location = (location[0],location[1]-1)
+			location = (location[0] - 1,location[1])
 			if location in locations_visited:
 				locations_visited_twice.append(location)
 			locations_visited.append(location)
-
-	if direction  ==  4:		
+	elif direction == 'north':
 		for x in xrange(int(instruction[1:])):
-			location = (location[0]-1,location[1])
+			location = (location[0] ,location[1] + 1)
 			if location in locations_visited:
 				locations_visited_twice.append(location)
-			locations_visited.append(location)			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			locations_visited.append(location)
+	elif direction == 'south':
+		for x in xrange(int(instruction[1:])):
+			location = (location[0] ,location[1]- 1)
+			if location in locations_visited:
+				locations_visited_twice.append(location)
+			locations_visited.append(location)
 
 print abs(location[0]) + abs(location[1])
-
 print abs(locations_visited_twice[0][0]) + abs(locations_visited_twice[0][1])
-
-
-  
-
